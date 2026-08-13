@@ -9,14 +9,19 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from .config import settings
 
-DB_HOST = settings.database_host
-DB_NAME = settings.database_name
-DB_USER = settings.database_user
-DB_PASSWORD = settings.database_password
-DB_PORT = settings.database_port
+if settings.environment == "production":
+    DATABASE_URL = settings.database_url
+else:
+    DB_HOST = settings.database_host
+    DB_NAME = settings.database_name
+    DB_USER = settings.database_user
+    DB_PASSWORD = settings.database_password
+    DB_PORT = settings.database_port
 
-SQLALCHEMY_DATABASE_URL = (
-    f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}" 
+
+SQLALCHEMY_DATABASE_URL = ( 
+    DATABASE_URL
 )
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
