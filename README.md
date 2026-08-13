@@ -1,88 +1,143 @@
-# FastAPI Project - Social Media API
+# FastAPI Social Media API 🚀
 
-A modern, production-ready FastAPI backend for managing users and posts with PostgreSQL database, JWT authentication, and comprehensive API documentation.
+A production-ready FastAPI backend for a social media platform with user authentication, post management, and voting system. Built with PostgreSQL, SQLAlchemy ORM, JWT authentication, and full API documentation.
+
+---
 
 ## 📋 Table of Contents
 
-- [Features](#features)
-- [Project Structure](#project-structure)
-- [Requirements](#requirements)
-- [Installation & Setup](#installation--setup)
-- [Environment Configuration](#environment-configuration)
-- [Database Setup](#database-setup)
+- [Overview](#overview)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
 - [Running the Application](#running-the-application)
+- [API Documentation](#api-documentation)
 - [API Endpoints](#api-endpoints)
-- [Authentication](#authentication)
-- [Project Components](#project-components)
-- [Development](#development)
+- [Database Models](#database-models)
+- [Authentication](#-authentication)
+- [Development Guide](#development-guide)
 - [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+
+---
+
+## Overview
+
+This FastAPI project implements a complete social media backend with:
+
+- **User Management** - Registration and user profiles
+- **Post Management** - Create, read, update, delete posts
+- **Voting System** - Users can vote/like posts
+- **JWT Authentication** - Secure API access with token-based auth
+- **Database Migrations** - Version control with Alembic
+
+The API is fully documented with interactive Swagger UI and ReDoc.
+
+---
 
 ## ✨ Features
 
-- **User Management** - Create and retrieve user accounts
-- **Post Management** - Create, read, update, and delete posts
-- **JWT Authentication** - Secure API with JSON Web Tokens
-- **Password Security** - Bcrypt hashing for safe password storage
-- **Database Migrations** - Alembic for version control of database schema
-- **Auto API Documentation** - Interactive Swagger UI & ReDoc
-- **Input Validation** - Pydantic models for request/response validation
-- **CORS Support** - Cross-Origin Resource Sharing enabled
+- ✅ **User Authentication** - Register and login with JWT tokens
+- ✅ **User Profiles** - Create user accounts with secure password storage
+- ✅ **Post Management** - Full CRUD operations for posts
+- ✅ **Voting/Liking** - Users can vote on posts
+- ✅ **Search Functionality** - Search posts by title
+- ✅ **Pagination** - Built-in limit and skip parameters
+- ✅ **Password Security** - Bcrypt hashing for passwords
+- ✅ **CORS Support** - Cross-Origin Resource Sharing enabled
+- ✅ **Auto API Docs** - Swagger UI and ReDoc documentation
+- ✅ **Pydantic Validation** - Request/response validation
+- ✅ **Database Migrations** - Alembic version control
+- ✅ **Role-Based Access** - User-specific resource access
+
+---
+
+## 🛠 Tech Stack
+
+| Component            | Technology            |
+| -------------------- | --------------------- |
+| **Framework**        | FastAPI               |
+| **Database**         | PostgreSQL            |
+| **ORM**              | SQLAlchemy            |
+| **Authentication**   | JWT (JSON Web Tokens) |
+| **Password Hashing** | Bcrypt                |
+| **Migrations**       | Alembic               |
+| **API Server**       | Uvicorn               |
+| **Validation**       | Pydantic              |
+
+---
 
 ## 📁 Project Structure
 
 ```
 fastapi/
-├── alembic/                      # Database migration files
-│   ├── versions/                 # Individual migration scripts
-│   ├── env.py                    # Alembic environment config
-│   └── script.py.mako            # Migration template
+│
 ├── app/                          # Main application package
 │   ├── __init__.py               # Package initialization
-│   ├── main.py                   # Application entry point & FastAPI setup
-│   ├── config.py                 # Configuration settings
-│   ├── database.py               # Database connection & session setup
-│   ├── models.py                 # SQLAlchemy database models
-│   ├── schemas.py                # Pydantic request/response schemas
-│   ├── oauth2.py                 # JWT authentication logic
-│   ├── utils.py                  # Password hashing & utility functions
-│   └── routers/                  # API route modules
-│       ├── auth.py               # Authentication endpoints
-│       ├── user.py               # User management endpoints
-│       ├── post.py               # Post management endpoints
-│       └── vote.py               # Voting/rating endpoints
+│   ├── main.py                   # FastAPI app setup & routers
+│   ├── config.py                 # Environment configuration
+│   ├── database.py               # PostgreSQL connection & session
+│   ├── models.py                 # SQLAlchemy ORM models
+│   ├── schemas.py                # Pydantic request/response models
+│   ├── oauth2.py                 # JWT token generation & validation
+│   ├── utils.py                  # Utility functions (password hashing)
+│   │
+│   └── routers/                  # API endpoints
+│       ├── auth.py               # POST /login
+│       ├── user.py               # POST /users, GET /users/{id}
+│       ├── post.py               # CRUD operations for posts
+│       └── vote.py               # POST /votes
+│
+├── alembic/                      # Database migrations
+│   ├── env.py                    # Migration environment
+│   ├── script.py.mako            # Migration template
+│   ├── README                    # Alembic documentation
+│   └── versions/                 # Individual migration files
+│
 ├── .env.example                  # Environment variables template
-├── .gitignore                    # Git ignore configuration
-├── alembic.ini                   # Alembic configuration file
-├── pyproject.toml                # Project metadata (FastAPI)
+├── .gitignore                    # Git ignore file
+├── alembic.ini                   # Alembic configuration
+├── pyproject.toml                # FastAPI project config
 ├── requirements.txt              # Python dependencies
-└── README.md                     # This file
+├── README.md                     # This file
+└── .git/                         # Git repository
+
 ```
 
-## 🔧 Requirements
+---
 
-- **Python**: 3.11 or higher
-- **PostgreSQL**: 12 or higher (running locally or remotely)
-- **pip**: Python package manager
-- **Git**: Version control
+## Prerequisites
 
-## 📦 Installation & Setup
+Ensure you have the following installed:
 
-### Step 1: Clone or Navigate to Project
+- **Python 3.11+** - [Download](https://www.python.org/downloads/)
+- **PostgreSQL 12+** - [Download](https://www.postgresql.org/download/)
+- **Git** - [Download](https://git-scm.com/download)
+- **pip** - Comes with Python
+
+---
+
+## Installation
+
+### 1️⃣ Clone or Navigate to Project
 
 ```bash
 cd e:\Daksh\web-dev\fastapi
 ```
 
-### Step 2: Create and Activate Virtual Environment
+### 2️⃣ Create Virtual Environment
 
-**Windows CMD:**
+**Windows (CMD):**
 
 ```cmd
 python -m venv venv
 .\venv\Scripts\activate
 ```
 
-**Windows PowerShell:**
+**Windows (PowerShell):**
 
 ```powershell
 python -m venv venv
@@ -96,211 +151,379 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### Step 3: Install Dependencies
+### 3️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 4: Create Environment Configuration
+### 4️⃣ Setup Environment Variables
 
 Copy the example environment file:
 
 ```bash
 copy .env.example .env          # Windows CMD
-# OR
 Copy-Item .env.example .env     # Windows PowerShell
+cp .env.example .env            # macOS/Linux
 ```
 
-### Step 5: Configure Environment Variables
-
-Edit `.env` file and update the following values:
+Edit `.env` and configure:
 
 ```env
-DATABASE_URL=postgresql://username:password@localhost/fastapi_db
-SECRET_KEY=your-secret-key-here-change-in-production
+ENVIRONMENT=development
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USER=postgres
+DATABASE_PASSWORD=your_password
+DATABASE_NAME=fastapi_db
+DATABASE_URL=postgresql://postgres:your_password@localhost:5432/fastapi_db
+SECRET_KEY=your-super-secret-key-change-in-production
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
-### Step 6: Setup Database
+### 5️⃣ Create PostgreSQL Database
 
-Ensure PostgreSQL is running, then create the database:
+Using psql or pgAdmin:
 
-```bash
-createdb fastapi_db    # macOS/Linux
-# OR use pgAdmin or your preferred PostgreSQL management tool
+```sql
+CREATE DATABASE fastapi_db;
 ```
 
-Run Alembic migrations to create tables:
+Or via command line:
+
+```bash
+createdb fastapi_db
+```
+
+### 6️⃣ Run Database Migrations
 
 ```bash
 alembic upgrade head
 ```
 
-## 🚀 Running the Application
+---
 
-Start the development server:
+## Configuration
+
+### Environment Variables
+
+| Variable                      | Description            | Example                          |
+| ----------------------------- | ---------------------- | -------------------------------- |
+| `ENVIRONMENT`                 | Dev/prod environment   | `development`                    |
+| `DATABASE_HOST`               | PostgreSQL host        | `localhost`                      |
+| `DATABASE_PORT`               | PostgreSQL port        | `5432`                           |
+| `DATABASE_USER`               | DB user                | `postgres`                       |
+| `DATABASE_PASSWORD`           | DB password            | `your_password`                  |
+| `DATABASE_NAME`               | Database name          | `fastapi_db`                     |
+| `DATABASE_URL`                | Full connection string | `postgresql://user:pass@host/db` |
+| `SECRET_KEY`                  | JWT signing key        | `your-secret-key`                |
+| `ALGORITHM`                   | JWT algorithm          | `HS256`                          |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | Token validity         | `30`                             |
+
+---
+
+## Running the Application
+
+### Development Mode
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-The application will start at `http://127.0.0.1:8000`
+The app will be available at: **http://127.0.0.1:8000**
 
-### Access API Documentation
+### Production Mode
 
-- **Swagger UI (Interactive)**: http://127.0.0.1:8000/docs
-- **ReDoc (Alternative)**: http://127.0.0.1:8000/redoc
-- **OpenAPI JSON**: http://127.0.0.1:8000/openapi.json
+```bash
+gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app
+```
+
+---
+
+## API Documentation
+
+Once the server is running, access the interactive documentation:
+
+- 📘 **Swagger UI** - http://127.0.0.1:8000/docs
+- 📙 **ReDoc** - http://127.0.0.1:8000/redoc
+- 📋 **OpenAPI JSON** - http://127.0.0.1:8000/openapi.json
+
+---
+
+## Database Models
+
+### User Model
+
+```python
+{
+  "id": 1,
+  "email": "user@example.com",
+  "password": "hashed_password",
+  "created_at": "2024-01-15T10:30:00Z"
+}
+```
+
+### Post Model
+
+```python
+{
+  "id": 1,
+  "title": "My First Post",
+  "content": "Post content here...",
+  "publish": true,
+  "created_at": "2024-01-15T10:30:00Z",
+  "owner_id": 1
+}
+```
+
+### Vote Model
+
+```python
+{
+  "user_id": 1,
+  "post_id": 1
+}
+```
+
+---
 
 ## 🔐 Authentication
 
-The API uses **JWT (JSON Web Tokens)** for authentication.
+### JWT Flow
 
-### Login Flow
+1. **Register** - Create account via `POST /users/`
+2. **Login** - Get token via `POST /login`
+3. **Authenticate** - Include header: `Authorization: Bearer <token>`
 
-1. User calls `POST /login` with username and password
-2. Server validates credentials and returns an access token
-3. Client includes token in `Authorization: Bearer <token>` header for protected endpoints
+### Token Example
 
-### Token Expiration
+```bash
+curl -X GET "http://127.0.0.1:8000/posts/" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
 
-- Default: 30 minutes (configurable via `ACCESS_TOKEN_EXPIRE_MINUTES`)
-- Token must be refreshed after expiration
+---
 
 ## 📡 API Endpoints
 
 ### Authentication
 
-| Method | Endpoint | Description                 |
-| ------ | -------- | --------------------------- |
-| POST   | `/login` | Login and receive JWT token |
+| Method | Endpoint | Description            | Auth |
+| ------ | -------- | ---------------------- | ---- |
+| POST   | `/login` | Login with credentials | ❌   |
+
+**Example:**
+
+```bash
+curl -X POST "http://127.0.0.1:8000/login" \
+  -d "username=user@example.com&password=yourpassword"
+```
 
 ### Users
 
-| Method | Endpoint      | Description       | Auth Required |
-| ------ | ------------- | ----------------- | ------------- |
-| POST   | `/users/`     | Create a new user | No            |
-| GET    | `/users/{id}` | Get user by ID    | Yes           |
+| Method | Endpoint      | Description      | Auth |
+| ------ | ------------- | ---------------- | ---- |
+| POST   | `/users/`     | Create new user  | ❌   |
+| GET    | `/users/{id}` | Get user profile | ✅   |
+
+**Create User:**
+
+```bash
+curl -X POST "http://127.0.0.1:8000/users/" \
+  -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"password123"}'
+```
+
+**Get User:**
+
+```bash
+curl -X GET "http://127.0.0.1:8000/users/1" \
+  -H "Authorization: Bearer <token>"
+```
 
 ### Posts
 
-| Method | Endpoint      | Description       | Auth Required |
-| ------ | ------------- | ----------------- | ------------- |
-| GET    | `/posts/`     | Get all posts     | Yes           |
-| POST   | `/posts/`     | Create a new post | Yes           |
-| GET    | `/posts/{id}` | Get post by ID    | Yes           |
-| PUT    | `/posts/{id}` | Update a post     | Yes           |
-| DELETE | `/posts/{id}` | Delete a post     | Yes           |
+| Method | Endpoint      | Description                               | Auth |
+| ------ | ------------- | ----------------------------------------- | ---- |
+| GET    | `/posts/`     | List all posts (with search, limit, skip) | ✅   |
+| POST   | `/posts/`     | Create new post                           | ✅   |
+| GET    | `/posts/{id}` | Get specific post                         | ✅   |
+| PUT    | `/posts/{id}` | Update post                               | ✅   |
+| DELETE | `/posts/{id}` | Delete post                               | ✅   |
 
-### Votes/Ratings
+**Query Parameters for GET /posts/:**
 
-| Method | Endpoint | Description    | Auth Required |
-| ------ | -------- | -------------- | ------------- |
-| POST   | `/vote/` | Vote on a post | Yes           |
+- `search` - Search by title
+- `limit` - Max results (default: 10)
+- `skip` - Pagination offset (default: 0)
 
-## 🏗️ Project Components
+**Example:**
 
-### Database Models (app/models.py)
+```bash
+curl -X GET "http://127.0.0.1:8000/posts/?search=python&limit=5&skip=0" \
+  -H "Authorization: Bearer <token>"
+```
 
-- **User Model**: Stores user account information with secure password hashing
-- **Post Model**: Stores post content with owner reference and timestamps
-- **Vote Model**: Tracks user votes/ratings on posts
+### Votes
 
-### Schemas (app/schemas.py)
+| Method | Endpoint  | Description    | Auth |
+| ------ | --------- | -------------- | ---- |
+| POST   | `/votes/` | Vote on a post | ✅   |
 
-Pydantic models for request validation and response formatting:
+**Vote on Post:**
 
-- `UserCreate`, `UserResponse` - User data validation
-- `PostCreate`, `PostResponse` - Post data validation
-- `Token` - JWT token response structure
+```bash
+curl -X POST "http://127.0.0.1:8000/votes/" \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"post_id":1,"dir":1}'
+```
 
-### OAuth2 Security (app/oauth2.py)
+---
 
-- JWT token generation and validation
-- User authentication from token
-- Protected endpoint decorators
+## Development Guide
 
-### Configuration (app/config.py)
-
-Centralized settings management using Pydantic:
-
-- Database URL
-- JWT secret key
-- Token expiration time
-- Algorithm selection
-
-## 🛠️ Development
-
-### Run Tests
+### Running Tests
 
 ```bash
 pytest
 ```
 
-### Database Migrations
-
-Create a new migration after model changes:
+### Code Quality
 
 ```bash
-alembic revision --autogenerate -m "Description of changes"
-alembic upgrade head
-```
-
-### Code Formatting
-
-```bash
+# Format code
 black app/
+
+# Lint code
 flake8 app/
+
+# Type checking
+mypy app/
 ```
 
-## ⚠️ Troubleshooting
+### Creating Database Migrations
+
+```bash
+# Auto-generate migration
+alembic revision --autogenerate -m "Add new column"
+
+# Apply migration
+alembic upgrade head
+
+# Revert migration
+alembic downgrade -1
+```
+
+### Project Layout
+
+```
+app/
+├── main.py            - FastAPI app instance & router imports
+├── config.py          - Pydantic settings from .env
+├── database.py        - SQLAlchemy engine & session
+├── models.py          - Database models (User, Post, Vote)
+├── schemas.py         - Pydantic models for API
+├── oauth2.py          - JWT token creation & validation
+├── utils.py           - Helper functions (password hashing)
+└── routers/
+    ├── auth.py        - Login endpoint
+    ├── user.py        - User CRUD
+    ├── post.py        - Post CRUD
+    └── vote.py        - Vote endpoint
+```
+
+---
+
+## Troubleshooting
 
 ### Issue: `ModuleNotFoundError: No module named 'psycopg2'`
 
-**Solution**: Install PostgreSQL adapter:
+**Solution:**
 
 ```bash
 pip install psycopg2-binary
 ```
 
-### Issue: Database connection error
+### Issue: Database connection failed
 
 **Check:**
 
-- PostgreSQL server is running
-- `DATABASE_URL` in `.env` is correct
-- Database exists
-- Username and password are correct
+- PostgreSQL is running
+- `.env` file exists and has correct credentials
+- Database `fastapi_db` is created
+- Connection string format is correct
 
-### Issue: Token expired error
+### Issue: `alembic: error: can't find config file`
 
-**Solution**: Re-login to get a new token
+**Solution:**
 
-### Issue: CORS errors
+```bash
+cd e:\Daksh\web-dev\fastapi
+alembic upgrade head
+```
 
-**Check**: CORS middleware is configured in `app/main.py`
+### Issue: JWT token expired
 
-## 📝 Notes
+**Solution:** Login again to get a new token
 
-- **Development**: The project includes sensible defaults for local development
-- **Production**: Before deploying:
-  - Change `SECRET_KEY` to a strong, random value
-  - Set `DEBUG = False`
-  - Use environment variables for all secrets
-  - Enable HTTPS
-  - Setup proper logging and monitoring
-  - Use a production ASGI server (e.g., Gunicorn + Uvicorn)
+### Issue: CORS errors in frontend
 
-## 📚 Additional Resources
+Check `app/main.py` - CORS is configured to allow all origins (`origins = ["*"]`)
 
-- [FastAPI Documentation](https://fastapi.tiangolo.com/)
-- [SQLAlchemy Documentation](https://docs.sqlalchemy.org/)
-- [Pydantic Documentation](https://docs.pydantic.dev/)
-- [JWT RFC 7519](https://tools.ietf.org/html/rfc7519)
+### Issue: Port 8000 already in use
+
+**Solution:**
+
+```bash
+uvicorn app.main:app --reload --port 8001
+```
 
 ---
 
-**Last Updated**: 2026-08-13
-**Version**: 1.0.0
+## Contributing
+
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
+
+---
+
+## Production Deployment Checklist
+
+- [ ] Change `SECRET_KEY` to random secure value
+- [ ] Set `ENVIRONMENT=production`
+- [ ] Use strong database password
+- [ ] Configure HTTPS/SSL
+- [ ] Use environment variables (never commit secrets)
+- [ ] Enable database backups
+- [ ] Setup logging & monitoring
+- [ ] Use production ASGI server (Gunicorn + Uvicorn)
+- [ ] Configure firewall rules
+- [ ] Setup error tracking (Sentry)
+
+---
+
+## Resources
+
+- [FastAPI Docs](https://fastapi.tiangolo.com/)
+- [SQLAlchemy Docs](https://docs.sqlalchemy.org/)
+- [Pydantic Docs](https://docs.pydantic.dev/)
+- [Alembic Docs](https://alembic.sqlalchemy.org/)
+- [PostgreSQL Docs](https://www.postgresql.org/docs/)
+- [JWT Introduction](https://jwt.io/introduction)
+
+---
+
+## License
+
+This project is open source and available under the MIT License.
+
+---
+
+**Version:** 1.0.0  
+**Last Updated:** 2026-08-13  
+**Repository:** https://github.com/DakshSitapara/fastapi
