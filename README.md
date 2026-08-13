@@ -173,32 +173,32 @@ The API uses **JWT (JSON Web Tokens)** for authentication.
 
 ### Authentication
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/login` | Login and receive JWT token |
+| Method | Endpoint | Description                 |
+| ------ | -------- | --------------------------- |
+| POST   | `/login` | Login and receive JWT token |
 
 ### Users
 
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|-----------------|
-| POST | `/users/` | Create a new user | No |
-| GET | `/users/{id}` | Get user by ID | Yes |
+| Method | Endpoint      | Description       | Auth Required |
+| ------ | ------------- | ----------------- | ------------- |
+| POST   | `/users/`     | Create a new user | No            |
+| GET    | `/users/{id}` | Get user by ID    | Yes           |
 
 ### Posts
 
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|-----------------|
-| GET | `/posts/` | Get all posts | Yes |
-| POST | `/posts/` | Create a new post | Yes |
-| GET | `/posts/{id}` | Get post by ID | Yes |
-| PUT | `/posts/{id}` | Update a post | Yes |
-| DELETE | `/posts/{id}` | Delete a post | Yes |
+| Method | Endpoint      | Description       | Auth Required |
+| ------ | ------------- | ----------------- | ------------- |
+| GET    | `/posts/`     | Get all posts     | Yes           |
+| POST   | `/posts/`     | Create a new post | Yes           |
+| GET    | `/posts/{id}` | Get post by ID    | Yes           |
+| PUT    | `/posts/{id}` | Update a post     | Yes           |
+| DELETE | `/posts/{id}` | Delete a post     | Yes           |
 
 ### Votes/Ratings
 
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|-----------------|
-| POST | `/vote/` | Vote on a post | Yes |
+| Method | Endpoint | Description    | Auth Required |
+| ------ | -------- | -------------- | ------------- |
+| POST   | `/vote/` | Vote on a post | Yes           |
 
 ## 🏗️ Project Components
 
@@ -211,6 +211,7 @@ The API uses **JWT (JSON Web Tokens)** for authentication.
 ### Schemas (app/schemas.py)
 
 Pydantic models for request validation and response formatting:
+
 - `UserCreate`, `UserResponse` - User data validation
 - `PostCreate`, `PostResponse` - Post data validation
 - `Token` - JWT token response structure
@@ -224,6 +225,7 @@ Pydantic models for request validation and response formatting:
 ### Configuration (app/config.py)
 
 Centralized settings management using Pydantic:
+
 - Database URL
 - JWT secret key
 - Token expiration time
@@ -266,6 +268,7 @@ pip install psycopg2-binary
 ### Issue: Database connection error
 
 **Check:**
+
 - PostgreSQL server is running
 - `DATABASE_URL` in `.env` is correct
 - Database exists
