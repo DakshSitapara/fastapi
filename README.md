@@ -125,7 +125,8 @@ Ensure you have the following installed:
 ### 1️⃣ Clone or Navigate to Project
 
 ```bash
-cd e:\Daksh\web-dev\fastapi
+git clone https://github.com/DakshSitapara/fastapi.git
+cd fastapi
 ```
 
 ### 2️⃣ Create Virtual Environment
@@ -170,16 +171,16 @@ cp .env.example .env            # macOS/Linux
 Edit `.env` and configure:
 
 ```env
-ENVIRONMENT=development
 DATABASE_HOST=localhost
 DATABASE_PORT=5432
 DATABASE_USER=postgres
 DATABASE_PASSWORD=your_password
 DATABASE_NAME=fastapi_db
-DATABASE_URL=postgresql://postgres:your_password@localhost:5432/fastapi_db
 SECRET_KEY=your-super-secret-key-change-in-production
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
+ENVIRONMENT=development                                                       # change to production in production
+DATABASE_URL=postgresql://postgres:your_password@localhost:5432/fastapi_db    # used for production
 ```
 
 ### 5️⃣ Create PostgreSQL Database
